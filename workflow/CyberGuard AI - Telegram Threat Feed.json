@@ -1,0 +1,129 @@
+{
+  "name": "CyberGuard AI - Telegram Threat Feed",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {}
+          ]
+        },
+        "feedUrl": "https://feeds.feedburner.com/TheHackersNews"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0212c588-b667-488c-ad4a-91416fef4e2f",
+      "name": "RSS Feed Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a cybersecurity awareness assistant.\n\nCreate a LinkedIn-ready cybersecurity alert.\n\nInclude:\n- article title\n- short summary\n- threat impact\n- safety tips\n- source link\n- hashtags\n\nTitle:\n{{$json.title}}\n\nSource:\n{{$json.link}}\n\nContent:\n{{$json.contentSnippet}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        224,
+        16
+      ],
+      "id": "c9881c6a-bc5b-435c-9231-8fe47f9acdc4",
+      "name": "Basic LLM Chain",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2c28bb50-ca8d-4453-867a-32f4250690a5",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "5wcH0TscjwC1zTj5",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1237509274",
+        "text": "={{$json.text}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        144
+      ],
+      "id": "14ac5a60-318d-4ad1-baed-5096d32d2ab6",
+      "name": "Send a text message",
+      "webhookId": "cd8798aa-83e4-4540-9aa1-a5abd5e4ab97",
+      "credentials": {
+        "telegramApi": {
+          "id": "rRPt8TBCXh9iKfAx",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "94ae6a01-44e7-4804-9330-8f81d1080a7b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2377d9c45c42458f35383bea5c54316ac9793cc053135aa34c953c1736f59d25"
+  },
+  "id": "EW3seCdHTbUYUB15",
+  "tags": []
+}
