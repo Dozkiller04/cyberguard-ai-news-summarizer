@@ -1,27 +1,40 @@
 # CyberGuard AI - News Summarizer
 
-AI-powered cybersecurity news summarizer built using n8n and Gemini AI.
+AI-powered cybersecurity threat intelligence and alert automation workflow built using n8n and Gemini AI.
 
 ## Features
-- AI-generated cybersecurity summaries
-- LinkedIn-ready formatting
-- Workflow automation
-- Cybersecurity awareness content generation
+- Live cybersecurity RSS feed monitoring
+- AI-generated threat summaries
+- Telegram alert delivery
+- Automated cybersecurity awareness workflow
+- Real-time cyber threat notifications
+
+## Workflow Architecture
+
+RSS Feed → Gemini AI → Telegram Alerts
 
 ## Technologies Used
 - n8n
-- Gemini API
-- Automation Workflows
-- Prompt Engineering
+- Google Gemini API
+- Telegram Bot API
+- RSS Feed Automation
 
-## Workflow
-Manual Trigger → Input → Gemini AI → Output
+## Example Use Cases
+- Cybersecurity awareness
+- Threat intelligence monitoring
+- Automated cyber alerts
+- SOC-style notification systems
+
+## Screenshots
+(Add screenshots here)
 
 ## Future Improvements
-- RSS Feed Integration
-- Telegram Alerts
-- Automated Threat Intelligence
-- Multi-platform Posting
+- CVE severity analysis
+- Multiple RSS feeds
+- Threat categorization
+- Dashboard integration
+- Discord integration
+- Daily cyber digest
 
 ## Author
 Soham Tayade
